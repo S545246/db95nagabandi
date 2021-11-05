@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  p Icecream results
+  div(class="container-fluid")
+        div(class="row")
+            -
+                let details = [
+                    {
+                        "IceBrand": "Creamstone",
+                        "Iceflavor": "Vanilla",
+                        "IceCost": 20
+                    },
+                    {
+                        "IceBrand": "Blue Bell",
+                        "Iceflavor": "Chocolate chip",
+                        "IceCost": 23
+                    },
+                    {
+                        "IceBrand": "Ben & Jerry's",
+                        "Iceflavor": "Butter Pecan",
+                        "IceCost": 27
+                    },                   
+                ]
+            each c,index in details
+                div(class="col-sm-2" onclick=`buy(${index})`) #{c.IceBrand}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{c.Iceflavor}
+                div(class="col-sm-2" onclick=`buy(${index})`) #{c.IceCost}
+
+                script.                
+                      function buy(itemNo)
+                      {
+                            alert(`You purchased item ${itemNo+1}`)
+                      }

@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title       
+        - var image_name= ["BenJerry.png","Creamstone.jpg","BenJerry.png","vanilla.jpg","chocolate.jpg"]            
+            -for(let i=0;i<3;i++){
+                - let random_val=Math.floor(Math.random()*5)
+                 img(src= `/images/${image_name[random_val]}` alt="image", height="300", width="300")
+            -}
