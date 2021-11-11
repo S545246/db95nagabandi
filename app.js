@@ -3,14 +3,62 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var icecreamRouter = require('./routes/icecream');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
-
 var app = express();
+var mongoose = require('mongoose');
+var Icecream = require("./models/icecream");
+
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString, {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
+});
+
+// server start
+async function recreateDB() {
+  // Delete everything
+  await Icecream.deleteMany();
+  let instance1 = new
+  Icecream({
+    IceBrand: "Creamstone",
+    Iceflavor: "Vanilla",
+    IceCost: 20
+  });
+  let instance2 = new
+  Icecream({
+    IceBrand: "Blue Bell",
+    Iceflavor: "Chocolate chip",
+    IceCost: 23
+  });
+  let instance3 = new
+  Icecream({
+    IceBrand: "Ben & Jerry's",
+    Iceflavor: "Butter Pecan",
+    IceCost: 27
+  });  
+  instance1.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("First object saved")
+  });
+  instance2.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Second object saved")
+  });
+  instance3.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Third object saved")
+  });
+}
+
+let reseed = true;
+if (reseed) {
+  recreateDB();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
