@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 var icecreamRouter = require('./routes/icecream');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
 var app = express();
 var mongoose = require('mongoose');
 var Icecream = require("./models/icecream");
@@ -75,6 +76,7 @@ app.use('/users', usersRouter);
 app.use('/icecream', icecreamRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
