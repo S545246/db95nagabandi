@@ -4,5 +4,5 @@ const icecreamSchema = mongoose.Schema({
     Iceflavor: String,
     IceCost: Number
 })
-module.exports = mongoose.model("icecream",
+module.exports = mongoose.model("Icecream",
 icecreamSchema)
