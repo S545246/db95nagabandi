@@ -32,7 +32,21 @@ exports.icecream_delete = function (req, res) {
 };
 // Handle Icecream update form on PUT.
 exports.icecream_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: Icecream update PUT' + req.params.id);
+console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+try {
+let toUpdate = await icecream.findById( req.params.id)
+// Do updates of properties
+if(req.body.IceBrand)
+toUpdate.IceBrand = req.body.IceBrand;
+if(req.body.Iceflavor) toUpdate.Iceflavor = req.body.Iceflavor;
+if(req.body.IceCost) toUpdate.IceCost = req.body.IceCost;
+let result = await toUpdate.save();
+console.log("Sucess " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send('NOT IMPLEMENTED: Icecream update PUT' + req.params.id);
 };
 
 // List of all Icecreams
