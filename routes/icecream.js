@@ -12,4 +12,7 @@ router.get('/', function(req, res, next) {
   res.render('icecream', { title: 'Search Results icecream' });
 });
 
+// GET request for one icecream.
+router.get('/icecream/:id', icecream_controlers.icecream_detail);
+
 module.exports = router;
