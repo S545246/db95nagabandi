@@ -103,8 +103,7 @@ exports.icecream_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
     result = await Icecream.findById( req.query.id)
-    res.render('icecreamdetail',
-    { title: 'Icecream Detail', toShow: result });
+    res.render('icecreamdetail',{ title: 'Icecream Detail', toShow: result });
     }
     catch(err){
     res.status(500)
