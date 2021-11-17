@@ -1,0 +1,20 @@
+extends layout
+block content
+h1= title
+- let icecreamid = toShow._id
+- let IceBrand = toShow.IceBrand
+- let Iceflavor = toShow.Iceflavor
+- let IceCost = toShow.IceCost
+div
+div.row
+div(class='icecreamAttr mr-3') icecreamid is:
+div #{icecreamid}
+div.row
+div(class='icecreamAttr mr-3') IceBrand is:
+div #{IceBrand}
+div.row
+div(class='icecreamAttr mr-3') Iceflavor is:
+div #{Iceflavor}
+div.row
+div(class='icecreamAttr mr-3') IceCost is:
+div #{IceCost}

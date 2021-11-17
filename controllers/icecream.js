@@ -30,7 +30,7 @@ exports.icecream_create_post = async function (req, res) {
 exports.icecream_delete = async function (req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Costume.findByIdAndDelete( req.params.id)
+    result = await Icecream.findByIdAndDelete( req.params.id)
     console.log("Removed " + result)
     res.send(result)
     } catch (err) {
@@ -95,5 +95,19 @@ exports.icecream_detail = async function (req, res) {
     } catch (error) {
         res.status(500)
         res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.icecream_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await Icecream.findById( req.query.id)
+    res.render('icecreamdetail',
+    { title: 'Icecream Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
     }
 };
