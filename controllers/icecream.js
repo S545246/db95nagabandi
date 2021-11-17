@@ -27,7 +27,7 @@ exports.icecream_create_post = async function (req, res) {
     }
 };
 // Handle Icecream delete form on DELETE.
-exports.icecream_delete = function (req, res) {
+exports.icecream_delete = async function (req, res) {
     console.log("delete " + req.params.id)
     try {
     result = await Costume.findByIdAndDelete( req.params.id)
