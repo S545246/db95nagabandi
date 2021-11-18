@@ -4,16 +4,24 @@ block content
   h1= title
   - let icecreams = results; 
   table(class="table table-stripped table-bordered")
-        thead(style="background-color:black;color:white;") 
+        thead(style="background-color:Orange; color:blue;font-size:20px;font-family:calibri;") 
             tr
-                td Item ID
-                td IceCream Brand
-                td IceCream flavor 
-                td IceCream Cost
+                td Icecream ID
+                td Icecream Brand 
+                td Icecream flavor 
+                td Icecream Cost 
+                td Update
         tbody 
-            each icecream in icecreams 
+            each icecream in icecreams
+                - let destination = `dispatch(\"/icecream/update?id=${icecream._id}\")`
                 tr
                     td #{icecream._id}
                     td #{icecream.IceBrand}
                     td #{icecream.Iceflavor}
                     td #{icecream.IceCost}
+                    td
+                      button.btn( class="btn-primary ml-1", onclick= destination) Update
+                script.
+                    function dispatch(path){
+                      window.location.href=path
+                    }
