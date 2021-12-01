@@ -21,7 +21,57 @@ passport.use(new LocalStrategy(
   });
   }));
 
- 
+  var mongoose = require('mongoose');
+  var Icecream = require("./models/icecream");
+  
+  const connectionString = process.env.MONGO_CON
+  mongoose = require('mongoose');
+  mongoose.connect(connectionString, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+  });
+  
+  // server start
+  async function recreateDB() {
+    // Delete everything
+    await Icecream.deleteMany();
+    let instance1 = new
+    Icecream({
+      IceBrand: "Creamstone",
+      Iceflavor: "Vanilla",
+      IceCost: 20
+    });
+    let instance2 = new
+    Icecream({
+      IceBrand: "Blue Bell",
+      Iceflavor: "Chocolate chip",
+      IceCost: 23
+    });
+    let instance3 = new
+    Icecream({
+      IceBrand: "Ben & Jerry's",
+      Iceflavor: "Butter Pecan",
+      IceCost: 27
+    });  
+    instance1.save(function (err, doc) {
+      if (err) return console.error(err);
+      console.log("First object saved")
+    });
+    instance2.save(function (err, doc) {
+      if (err) return console.error(err);
+      console.log("Second object saved")
+    });
+    instance3.save(function (err, doc) {
+      if (err) return console.error(err);
+      console.log("Third object saved")
+    });
+  }
+  
+  let reseed = true;
+  if (reseed) {
+    recreateDB();
+  }
+  
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -30,56 +80,6 @@ var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
 var resourceRouter = require('./routes/resource');
 var app = express();
-var mongoose = require('mongoose');
-var Icecream = require("./models/icecream");
-
-const connectionString = process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString, {
-  useNewUrlParser: true, 
-  useUnifiedTopology: true
-});
-
-// server start
-async function recreateDB() {
-  // Delete everything
-  await Icecream.deleteMany();
-  let instance1 = new
-  Icecream({
-    IceBrand: "Creamstone",
-    Iceflavor: "Vanilla",
-    IceCost: 20
-  });
-  let instance2 = new
-  Icecream({
-    IceBrand: "Blue Bell",
-    Iceflavor: "Chocolate chip",
-    IceCost: 23
-  });
-  let instance3 = new
-  Icecream({
-    IceBrand: "Ben & Jerry's",
-    Iceflavor: "Butter Pecan",
-    IceCost: 27
-  });  
-  instance1.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("First object saved")
-  });
-  instance2.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Second object saved")
-  });
-  instance3.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Third object saved")
-  });
-}
-
-let reseed = true;
-if (reseed) {
-  recreateDB();
-}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -89,14 +89,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/icecream', icecreamRouter);
-app.use('/addmods', addmodsRouter);
-app.use('/selector', selectorRouter);
-app.use('/', resourceRouter);
 
 app.use(require('express-session')({
   secret: 'keyboard cat',
@@ -105,6 +97,15 @@ app.use(require('express-session')({
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/icecream', icecreamRouter);
+app.use('/addmods', addmodsRouter);
+app.use('/selector', selectorRouter);
+app.use('/', resourceRouter);
 
 
 // passport config
