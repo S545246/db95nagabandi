@@ -3,6 +3,7 @@ extends layout
 block content
   h1= title
   - let icecreams = results; 
+  button.btn( class="btn-primary ml-1", onclick= `dispatch(\"/icecream/create\")`) Create
   table(class="table table-stripped table-bordered")
         thead(style="background-color:Orange; color:blue;font-size:20px;font-family:calibri;") 
             tr
@@ -11,6 +12,8 @@ block content
                 td Icecream flavor 
                 td Icecream Cost 
                 td Update
+                td Details 
+                td Delete
         tbody 
             each icecream in icecreams
                 - let destination = `dispatch(\"/icecream/update?id=${icecream._id}\")`
@@ -21,6 +24,10 @@ block content
                     td #{icecream.IceCost}
                     td
                       button.btn( class="btn-primary ml-1", onclick= destination) Update
+                    td
+                      button.btn( class="btn-primary ml-1", onclick= `dispatch(\"/icecream/detail?id=${icecream._id}\")`) Details
+                    td
+                      button.btn( class="btn-primary ml-1", onclick= `dispatch(\"/icecream/delete?id=${icecream._id}\")`) Delete
                 script.
                     function dispatch(path){
                       window.location.href=path

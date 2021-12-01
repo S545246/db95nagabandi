@@ -6,7 +6,7 @@ block content
   form(id='IcecreamForm', action="/resource/icecream", method="POST") 
     div.form-group 
         label.icecreamAttr(for='IceBrand') Icecream Brand 
-        input#IceBrand(type='text', name='IceBrand') 
+        input#IceBrand(type='text', name='IceBrand',minlength="4",maxlength="12") 
     div.form-group 
         label.icecreamAttr(for='Iceflavor') Icecream flavor 
         input#Iceflavor(type='text', name='Iceflavor') 
